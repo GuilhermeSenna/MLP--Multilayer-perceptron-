@@ -67,7 +67,6 @@ def main():
 
             # Passo 5
             erro = esperado - ResultObtido
-            print(erroQuadratico)
 
             # Passo 6
             erroQuadratico = (1/2) * (erro ** 2)
@@ -77,6 +76,11 @@ def main():
 
             # Variacao da correcao dos pesos da camada de saída (Passo 8)
             varicaoK = 0.5 * deltaK * EntradaFinal[0]
+
+            # Passo 9
+            deltaJ = deltaK * varicaoK * EntradaFinal[0] * (1 - EntradaFinal[0])
+
+            # variacaoJ = 0.5 * deltaJ *
 
             EntradaFinal.clear()
 
