@@ -33,6 +33,7 @@ def main():
     EntradaFinal = []
     variacaoK = []
     deltaJ = []
+    variacaoJ = [0, 0, 0, 0]
 
     ResultNeuronio1 = 0
     ResultNeuronio2 = 0
@@ -59,7 +60,7 @@ def main():
             #     print(f'DeltaJ {var} - {var_}')
 
             deltaJ.clear()
-        print(v)
+        print(v[0])
 
         # Passo 3 (hj)
         EntradaFinal.append(logistica(ResultNeuronio1))
@@ -87,8 +88,6 @@ def main():
         # Passo 5 (ek)
         erro = esperado - ResultObtido
 
-        print(f'-> {erro}')
-
         # Passo 6 (en)
         erroQuadratico = (1/2) * (erro ** 2)
 
@@ -102,17 +101,33 @@ def main():
         variacaoK.append(casasDecimais(0.5 * deltaK * EntradaFinal[1]))
 
         # Passo 9
-        deltaJ.append(casasDecimais(deltaK * variacaoK[0] * EntradaFinal[0] * (1 - EntradaFinal[0])))
-        deltaJ.append(casasDecimais(deltaK * variacaoK[0] * EntradaFinal[1] * (1 - EntradaFinal[1])))
-        deltaJ.append(casasDecimais(deltaK * variacaoK[1] * EntradaFinal[0] * (1 - EntradaFinal[0])))
-        deltaJ.append(casasDecimais(deltaK * variacaoK[1] * EntradaFinal[1] * (1 - EntradaFinal[1])))
+        # deltaJ.append(casasDecimais(deltaK * variacaoK[0] * EntradaFinal[0] * (1 - EntradaFinal[0])))
+        # deltaJ.append(casasDecimais(deltaK * variacaoK[0] * EntradaFinal[1] * (1 - EntradaFinal[1])))
+        # deltaJ.append(casasDecimais(deltaK * variacaoK[1] * EntradaFinal[0] * (1 - EntradaFinal[0])))
+        # deltaJ.append(casasDecimais(deltaK * variacaoK[1] * EntradaFinal[1] * (1 - EntradaFinal[1])))
+
+        deltaJ.append(casasDecimais((deltaK * v[0] + deltaK * v[1]) * EntradaFinal[0] * (1 - EntradaFinal[0])))
+        deltaJ.append(casasDecimais((deltaK * v[0] + deltaK * v[1]) * EntradaFinal[1] * (1 - EntradaFinal[1])))
 
         # Passo 10
+
+        for z in range(len(EntradaInicial)):
+            variacaoJ[0] += (0.5 * deltaJ[0] * EntradaInicial[z][0])
+            variacaoJ[1] += (0.5 * deltaJ[0] * EntradaInicial[z][1])
+            variacaoJ[2] += (0.5 * deltaJ[1] * EntradaInicial[z][0])
+            variacaoJ[3] += (0.5 * deltaJ[1] * EntradaInicial[z][1])
+
+
         # variacaoJ = 0.5 * deltaJ *
 
         # Passo 11
-        v[0] = v[0] * variacaoK[0]
-        v[1] = v[1] * variacaoK[1]
+        v[0] += variacaoK[0]
+        v[1] += variacaoK[1]
+
+        w[0] += variacaoJ[0]
+        w[1] += variacaoJ[1]
+        w[2] += variacaoJ[2]
+        w[3] += variacaoJ[3]
 
 
         EntradaFinal.clear()
