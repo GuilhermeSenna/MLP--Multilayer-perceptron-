@@ -8,9 +8,9 @@ def logistica(x):
 
 def sinal(x):
     if x > 0:
-        return 1
+        return 1.5
     else:
-        return -1
+        return -1.5
 
 
 def GerarPesos(TAM):
@@ -32,19 +32,20 @@ def main():
     ResultNeuronio2 = 0
     ResultNeuronio3 = 0
 
-    while 1:
+    cont = 0
+    for c in range(10):
+        print(f">> {c+1}ª passada:")
         for i in range(len(EntradaInicial)):
-            vetEntrada = EntradaInicial[i]
+            vetEntrada = EntradaInicial[i]      # Percorre os possíveis valores [0, 0], [0, 1], [1, 0], [1, 1]
             for j in range(len(vetEntrada)):
                 # Passo 3 (uj)
+
                 ResultNeuronio1 += (w[j] * vetEntrada[j])
                 ResultNeuronio2 += (w[j + 2] * vetEntrada[j])
 
             # Passo 3 (hj)
-
             EntradaFinal.append(logistica(ResultNeuronio1))
             EntradaFinal.append(logistica(ResultNeuronio2))
-            # print(EntradaFinal)
 
             # EntradaFinal[0] = logistica(ResultNeuronio1)
             # EntradaFinal[1] = logistica(ResultNeuronio2)
@@ -65,10 +66,10 @@ def main():
             elif vetEntrada[0] == 1 and vetEntrada[1] == 1:
                 esperado = -1
 
-            # Passo 5
+            # Passo 5 (ek)
             erro = esperado - ResultObtido
 
-            # Passo 6
+            # Passo 6 (en)
             erroQuadratico = (1/2) * (erro ** 2)
 
             # Gradiente - camada de saida (Passo 7)
@@ -78,6 +79,7 @@ def main():
             varicaoK = 0.5 * deltaK * EntradaFinal[0]
 
             # Passo 9
+
             deltaJ = deltaK * varicaoK * EntradaFinal[0] * (1 - EntradaFinal[0])
 
             # variacaoJ = 0.5 * deltaJ *
