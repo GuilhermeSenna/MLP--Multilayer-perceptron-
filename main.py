@@ -14,7 +14,7 @@ def sinal(x):
 
 
 def GerarPesos(TAM):
-    vetor = numpy.random.uniform(0.1, 1.0, TAM)
+    vetor = numpy.random.uniform(-1.0, 1.0, TAM)
     return vetor
 
 
@@ -38,11 +38,14 @@ def main():
     ResultNeuronio1 = 0
     ResultNeuronio2 = 0
     ResultNeuronio3 = 0
-    epoca = 0
+    epoca = 1
     cont = 0
+
+    print("Pesos camada intermediaria:", w)
+    print("\nPesos camada de saida  :", v)
     while 1:
         marcador = 0
-        print("Epoca", epoca)
+        print("\nEpoca", epoca)
         for i in range(len(EntradaInicial)):
             vetEntrada = EntradaInicial[i]
             for j in range(len(vetEntrada)):
@@ -114,6 +117,9 @@ def main():
             variacaoK.clear()
             variacaoJ.clear()
             deltaJ.clear()
+
+        print(w)
+        print(v)
         print("Resultado marcador:", marcador)
         print("----------------------------------------------------------\n")
         if marcador == 0:
