@@ -38,9 +38,11 @@ def main():
     ResultNeuronio1 = 0
     ResultNeuronio2 = 0
     ResultNeuronio3 = 0
-
-    while True:
-        marcador = False
+    epoca = 0
+    cont = 0
+    while 1:
+        marcador = 0
+        print("Epoca", epoca)
         for i in range(len(EntradaInicial)):
             vetEntrada = EntradaInicial[i]
             for j in range(len(vetEntrada)):
@@ -48,10 +50,6 @@ def main():
                 ResultNeuronio1 += (w[j] * vetEntrada[j])
                 ResultNeuronio2 += (w[j + 2] * vetEntrada[j])
 
-
-            print(f'x1 - x2 -> {vetEntrada}')
-
-            # print(v[0])
 
             # Passo 3 (hj)
             EntradaFinal.append(logistica(ResultNeuronio1))
@@ -96,15 +94,11 @@ def main():
                 aux = aux * EntradaFinal[j] * (1 - EntradaFinal[j])
                 deltaJ.append(casasDecimais(aux))
 
-            # print(deltaJ)
             # Passo 10
 
             for z in range(len(deltaJ)):
                 for j in range(len(vetEntrada)):
                     variacaoJ.append(0.5 * deltaJ[z] * vetEntrada[j])
-
-
-            print(f'VariacaoJ -> {variacaoJ}')
 
             # Passo 11
             for z in range(len(v)):
@@ -113,7 +107,7 @@ def main():
                 w[z] += variacaoJ[z]
 
             if erro != 0:
-                marcador = True
+                marcador = 1
 
             ResultNeuronio1 = 0
             ResultNeuronio2 = 0
@@ -121,8 +115,11 @@ def main():
             variacaoK.clear()
             variacaoJ.clear()
             deltaJ.clear()
-        if not marcador:
+        if marcador == 0:
             break
+        epoca += 1
+        print("Resultado marcador:", marcador)
+        print("----------------------------------------------------------\n")
 
 
 main()
