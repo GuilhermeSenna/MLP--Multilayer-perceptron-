@@ -50,7 +50,6 @@ def main():
                 ResultNeuronio1 += (w[j] * vetEntrada[j])
                 ResultNeuronio2 += (w[j + 2] * vetEntrada[j])
 
-
             # Passo 3 (hj)
             EntradaFinal.append(logistica(ResultNeuronio1))
             EntradaFinal.append(logistica(ResultNeuronio2))
@@ -115,11 +114,11 @@ def main():
             variacaoK.clear()
             variacaoJ.clear()
             deltaJ.clear()
+        print("Resultado marcador:", marcador)
+        print("----------------------------------------------------------\n")
         if marcador == 0:
             break
         epoca += 1
-        print("Resultado marcador:", marcador)
-        print("----------------------------------------------------------\n")
 
 
 main()
