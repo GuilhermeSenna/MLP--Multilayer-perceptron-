@@ -14,7 +14,7 @@ def sinal(x):
 
 
 def GerarPesos(TAM):
-    vetor = numpy.random.uniform(-1.0, 1.0, TAM)
+    vetor = numpy.random.uniform(0, 1.0, TAM)
     return vetor
 
 
@@ -60,8 +60,22 @@ def main():
             # Passo 4 (uk)
             ResultNeuronio3 = (EntradaFinal[0] * v[0]) + (EntradaFinal[1] * v[1])
 
+            print(f'---> Result neuronio = {ResultNeuronio3}')
             # Passo 4 (yk)
-            ResultObtido = sinal(ResultNeuronio3)
+            # ResultObtido = sinal(ResultNeuronio3)
+            ResultObtido = logistica(ResultNeuronio3)
+            # print('=== \n')
+
+            print(f' Vetor entrada {vetEntrada} - Resultado Obtido {ResultObtido}')
+            print(f' Entrada Final => {EntradaFinal}')
+
+            # Binarização
+            if ResultObtido < 0.5:
+                ResultObtido = -1.5
+            else:
+                ResultObtido = 1.5
+
+            print(f' Vetor entrada {vetEntrada} - Novo Resultado Obtido {ResultObtido}')
 
             # XOR
             if vetEntrada[0] == 0 and vetEntrada[1] == 0:
@@ -74,7 +88,11 @@ def main():
                 esperado = -1.5
 
             # Passo 5 (ek)
+            print(f'--> esperado {esperado} - Resultado Obtido {ResultObtido}')
             erro = esperado - ResultObtido
+
+            print(f'Erro -> {erro}')
+
 
             # Passo 6 (en)
             erroQuadratico = (1 / 2) * (erro ** 2)
@@ -103,6 +121,7 @@ def main():
                     variacaoJ.append(0.5 * deltaJ[z] * vetEntrada[j])
 
             # Passo 11
+
             for z in range(len(v)):
                 v[z] += variacaoK[z]
             for z in range(len(w)):
@@ -118,8 +137,8 @@ def main():
             variacaoJ.clear()
             deltaJ.clear()
 
-        print(w)
-        print(v)
+        print(f'w : {w}')
+        print(f'v : {v}')
         print("Resultado marcador:", marcador)
         print("----------------------------------------------------------\n")
         if marcador == 0:
